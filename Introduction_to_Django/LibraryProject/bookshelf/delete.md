@@ -1,5 +1,7 @@
 ### Delete Operation - Delete Book Instance
 
+from bookshelf.models import Book
+
 Command:
 ```python
 # Retrieve the book to delete
