@@ -15,7 +15,7 @@ def get_books_by_author(author_name):
 def get_book_in_libary(library_name):
     try: 
         library = Library.objects.get(name=library_name) # Fetch the library by name
-        books = library.book.all() # Many-to-Many relationship, get all books in this library
+        books = library.books.all() # Many-to-Many relationship, get all books in this library
         print(f"Books in the library '{library_name}':")
         for book in books:
             print(f" - {book.title}")
