@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse  # Import HttpResponse
 from django.views.generic import DetailView
-from relationship_app.models import Book, Library
+from .models import Book
+from .models import Library
 
 # Function-based view to list all books
 
