@@ -1,5 +1,10 @@
+""" 
+A view in django is a a function or a class that 
+ -accepts a http reques
+ -retuns a http response
+"""
 from django.shortcuts import render
-from django.http import HttpResponse  # Import HttpResponse
+from django.http import HttpResponse # Import HttpResponse
 from django.views.generic import DetailView
 from .models import Book
 from .models import Library
