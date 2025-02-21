@@ -24,7 +24,7 @@ def home(request):
 # Class-based view (CBV) to display details for a specific library
 class LibraryDetailView(DetailView):
     model = Library  # This CBV will work with the Library model
-    template_name = 'library_detail.html'  # Template to render the library details
+    template_name = 'relationship_app/library_detail.html'  # Template to render the library details
     context_object_name = 'library'  # The context variable for the template
     
     # Optionally, you can override get_context_data to add extra context to the template
