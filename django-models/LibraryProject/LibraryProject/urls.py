@@ -19,7 +19,7 @@ from django.urls import path, include
 from relationship_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_dashboard/', views.admin_view, name='admin_dashboard'),
     path('books/', views.list_books, name='list_books'), # FBV for listing books
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),  # CBV for library details
     path('accounts/', include('relationship_app.urls')),  # Include the authentication URLs from relationship_app
