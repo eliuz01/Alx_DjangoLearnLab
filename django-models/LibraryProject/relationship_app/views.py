@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
-from django.http import HttpResponseForbidden
 from .models import UserProfile
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -77,25 +76,16 @@ def is_librarian(user):
 def is_member(user):
     return user.userprofile.role == UserProfile.MEMBER
 
-# View for Admins
-@login_required
-@user_passes_test(is_admin)
+# Function-based view for Admin Dashboard
+@user_passes_test(lambda u: u.userprofile.role == 'Admin')
 def admin_view(request):
     return render(request, 'relationship_app/admin_dashboard.html')
 
 # View for Librarians
 @login_required
-def admin_view(request):
-    # Check if the logged-in user is an Admin
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-        if user_profile.role != 'Admin':
-            return HttpResponseForbidden('You do not have permission to access this page.')
-    except UserProfile.DoesNotExist:
-        return HttpResponseForbidden('You do not have permission to access this page.')
-    
-    # Render the admin dashboard template
-    return render(request, 'relationship_app/admin_dashboard.html')
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_dashboard.html')
 
 # View for Members
 @login_required
