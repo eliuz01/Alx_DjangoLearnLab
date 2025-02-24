@@ -1,0 +1,58 @@
+<!-- templates/relationship_app/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, {{ user.username }}! You are logged in as an Admin.</p>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>Manage Users</h2>
+            <p>You can manage all users, including adding, deleting, or modifying user roles.</p>
+            <a href="#">Go to User Management</a>
+        </div>
+
+        <div class="card">
+            <h2>View Reports</h2>
+            <p>View detailed reports and analytics for the application.</p>
+            <a href="#">Go to Reports</a>
+        </div>
+    </main>
+
+</body>
+</html>

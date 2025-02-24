@@ -12,4 +12,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),  # LoginView with a custom template
     path('logout/', LogoutView.as_view(template_name='login.html'), name='logout'),  # LogoutView, no custom template needed
     path('register/', views.register, name='register'),  # URL for registration page
+    path('admin_dashboard/', views.admin_view, name='admin_dashboard'),
+    path('librarian_dashboard/', views.librarian_view, name='librarian_dashboard'),
+    path('member_dashboard/', views.member_view, name='member_dashboard'),
 ]

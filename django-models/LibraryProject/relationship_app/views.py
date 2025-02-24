@@ -7,9 +7,10 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
+from .models import UserProfile
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 # Function-based view to list all books
@@ -62,3 +63,33 @@ def register(request):
 
     # Render the registration template with the form passed in context
     return render(request, 'relationship_app/register.html', {'form': form})
+
+# Check if the user is an Admin
+def is_admin(user):
+    return user.userprofile.role == UserProfile.ADMIN
+
+# Check if the user is a Librarian
+def is_librarian(user):
+    return user.userpofile.role == UserProfile.LIBRARIAN
+
+# Check if the user is a Member
+def is_member(user):
+    return user.userprofile.role == UserProfile.MEMBER
+
+# View for Admins
+@login_required
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_dashboard.html')
+
+# View for Librarians
+@login_required
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_dashboard.html')
+
+# View for Members
+@login_required
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, 'relationship_app/member_dashboard.html')

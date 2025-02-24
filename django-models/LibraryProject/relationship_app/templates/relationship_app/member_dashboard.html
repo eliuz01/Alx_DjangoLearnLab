@@ -1,0 +1,58 @@
+<!-- templates/relationship_app/member_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ffc107;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Member Dashboard</h1>
+        <p>Welcome, {{ user.username }}! You are logged in as a Member.</p>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>Browse Books</h2>
+            <p>Explore the library's collection and borrow books you like.</p>
+            <a href="#">Go to Book List</a>
+        </div>
+
+        <div class="card">
+            <h2>Your Borrowed Books</h2>
+            <p>View all the books you've borrowed and their due dates.</p>
+            <a href="#">Go to Your Borrowed Books</a>
+        </div>
+    </main>
+
+</body>
+</html>
