@@ -50,7 +50,7 @@ def user_logout(request):
     return render(request, 'relationship_app/logout.html')  # Render the logout template
 
 # View for Registration
-def user_register(request):
+def register(request):
     # If the method is POST, handle the registration form submission
     if request.method == 'POST':
         form = UserCreationForm(request.POST)  # Create a user creation form with POST data
