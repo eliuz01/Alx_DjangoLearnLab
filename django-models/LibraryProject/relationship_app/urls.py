@@ -12,6 +12,6 @@ urlpatterns = [
     path('books/', views.list_books, name='list_books'), # FBV for listing books
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),  # CBV for library details
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),  # LoginView with a custom template
-    path('logout/', LogoutView.as_view(), name='logout'),  # LogoutView, no custom template needed
+    path('logout/', LogoutView.as_view(template_name='login.html'), name='logout'),  # LogoutView, no custom template needed
     path('register/', views.register, name='register'),  # URL for registration page
 ]
