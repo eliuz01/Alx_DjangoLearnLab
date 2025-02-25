@@ -32,15 +32,12 @@ class Librarian(models.Model):
 
 class UserProfile(models.Model):
 # Define the roles
-    ADMIN = 'Admin'
-    Librarian = 'Librarian'
-    Member = 'Member'
-
     ROLE_CHOICES = [
-        (ADMIN, 'Admin'),
-        (Librarian, 'Librarian'),
-        (Member, 'Member'),
+        ('ADMIN', 'Admin'),
+        ('Librarian', 'Librarian'),
+        ('Member', 'Member'),
     ]
+
 
     # Link the UserProfile to the User model with a OneToOneField
     user = models.OneToOneField(User, on_delete=models.CASCADE)
