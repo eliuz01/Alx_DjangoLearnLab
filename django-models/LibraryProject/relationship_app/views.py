@@ -69,7 +69,7 @@ def is_admin(user):
     return user.userprofile.role == UserProfile.ADMIN
 
 # Check if the user is a Librarian
-def is_librarian(user):
+def is_librarians(user):
     return user.userpofile.role == UserProfile.LIBRARIANS
 
 # Check if the user is a Member
@@ -84,7 +84,7 @@ def admin_view(request):
 
 # View for Librarians
 @login_required
-@user_passes_test(is_librarian)
+@user_passes_test(is_librarians)
 def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 
