@@ -33,13 +33,13 @@ class Librarian(models.Model):
 class UserProfile(models.Model):
 # Define the roles
     ADMIN = 'Admin'
-    LIBRARIANS = 'Librarians'
-    MEMBER = 'Member'
+    Librarians = 'Librarians'
+    Member = 'Member'
 
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
-        (LIBRARIANS, 'Librarians'),
-        (MEMBER, 'Member'),
+        (Librarians, 'Librarians'),
+        (Member, 'Member'),
     ]
 
     # Link the UserProfile to the User model with a OneToOneField
