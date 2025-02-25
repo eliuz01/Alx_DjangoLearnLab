@@ -78,8 +78,9 @@ def is_member(user):
 
 # View for Admins
 @login_required
+@user_passes_test(is_admin)
 def admin_view(request):
-    return render(request, 'relationship_app/admin_dashboard.html')
+    return render(request, 'relationship_app/admin_view.html')
 
 # View for Librarians
 @login_required
