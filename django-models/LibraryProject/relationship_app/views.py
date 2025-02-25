@@ -76,10 +76,10 @@ def is_librarian(user):
 def is_member(user):
     return user.userprofile.role == UserProfile.MEMBER
 
-# Function-based view for Admin Dashboard
-@user_passes_test(lambda u: u.userprofile.role == 'Admin')
+# View for Admins
+@login_required
 def admin_view(request):
-    return render(request, 'relationship_app/admin_dashboard.html')
+    return render(request, 'relationship_app/admin_view.html')
 
 # View for Librarians
 @login_required
