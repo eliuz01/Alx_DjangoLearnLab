@@ -44,7 +44,7 @@ class UserProfile(models.Model):
 
     # Link the UserProfile to the User model with a OneToOneField
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=MEMBER)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=Member)
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
