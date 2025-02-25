@@ -13,6 +13,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='login.html'), name='logout'),  # LogoutView, no custom template needed
     path('register/', views.register, name='register'),  # URL for registration page
     path('admin_view/', views.admin_view, name='admin_view'),
-    path('librarian_dashboard/', views.librarian_view, name='librarian_dashboard'),
-    path('member_dashboard/', views.member_view, name='member_dashboard'),
+    path('librarian_view/', views.librarian_view, name='librarian_view'),
+    path('member_view/', views.member_view, name='member_view'),
 ]
