@@ -33,12 +33,12 @@ class Librarian(models.Model):
 class UserProfile(models.Model):
 # Define the roles
     ADMIN = 'Admin'
-    LIBRARIAN = 'Librarian'
+    LIBRARIAN = 'Librarians'
     MEMBER = 'Member'
 
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
-        (LIBRARIAN, 'Librarian'),
+        (LIBRARIAN, 'Librarians'),
         (MEMBER, 'Member'),
     ]
 
