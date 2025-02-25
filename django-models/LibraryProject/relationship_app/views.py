@@ -66,11 +66,11 @@ def register(request):
 
 # Check if the user is an Admin
 def is_admin(user):
-    return user.userprofile.role == UserProfile.ADMIN
+    return user.userprofile.role == 'Admin'
 
 # Check if the user is a Librarian
 def is_librarian(user):
-    return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+    return user.userprofile.role == 'Librarian'
    
 # Check if the user is a Member
 def is_member(user):
