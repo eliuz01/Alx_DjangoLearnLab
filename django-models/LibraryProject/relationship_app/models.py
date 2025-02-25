@@ -38,7 +38,6 @@ class UserProfile(models.Model):
 
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
-        (LIBRARIAN, 'Librarians'),
         (MEMBER, 'Member'),
     ]
 
