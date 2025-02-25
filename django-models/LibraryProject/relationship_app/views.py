@@ -70,7 +70,7 @@ def is_admin(user):
 
 # Check if the user is a Librarian
 def is_librarian(user):
-    return user.userpofile.role == UserProfile.Librarians
+    return user.userpofile.role == 'Librarians'
 
 # Check if the user is a Member
 def is_member(user):

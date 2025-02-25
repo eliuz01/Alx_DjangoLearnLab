@@ -33,18 +33,18 @@ class Librarian(models.Model):
 class UserProfile(models.Model):
 # Define the roles
     ADMIN = 'Admin'
-    Librarians = 'Librarians'
-    Member = 'Member'
+    LIBRARIAN = 'Librarians'
+    MEMBER = 'Member'
 
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
-        (Librarians, 'Librarians'),
-        (Member, 'Member'),
+        (LIBRARIAN, 'Librarians'),
+        (MEMBER, 'Member'),
     ]
 
     # Link the UserProfile to the User model with a OneToOneField
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=Member)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=MEMBER)
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
