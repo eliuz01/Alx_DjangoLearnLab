@@ -16,7 +16,7 @@ class Book(models.Model):
     def __str__(self):
         return self.title  # Returns the title of the book
     
-    class meta:
+    class Meta:
         permissions = [
         ("can_add_book", "can_add_book"), 
         ("can_change_book", "can_change_book"),
