@@ -40,10 +40,10 @@ class Librarian(models.Model):
 class UserProfile(models.Model):
 # Define the roles
     ROLE_CHOICES = [
-        ('ADMIN', 'Admin'),
-        ('Librarian', 'Librarian'),
-        ('Member', 'Member'),
-    ]
+    ('Admin', 'Admin'),
+    ('Librarian', 'Librarian'),
+    ('Member', 'Member'),
+]
 
 
     # Link the UserProfile to the User model with a OneToOneField
