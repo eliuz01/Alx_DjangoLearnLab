@@ -86,9 +86,10 @@ def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
 # Librarian view
+@login_required
 @user_passes_test(is_librarian)
 def librarian_view(request):
-    return render(request, "relationship_app/librarian_view.html")  # Ensure this path is present
+    return render(request, 'relationship_app/librarian_view.html')  # Ensure this path is present
 
 
 # View for Members
