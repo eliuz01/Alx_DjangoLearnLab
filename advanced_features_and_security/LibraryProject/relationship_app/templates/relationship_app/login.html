@@ -1,0 +1,28 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Optional for styling -->
+</head>
+<body>
+    <h1>Login</h1>
+    
+    <!-- Display an error message if there are form errors -->
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <!-- Login form -->
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render form fields -->
+        
+        <input type="submit" value="Login" />
+    </form>
+
+    <!-- Link to registration page -->
+    <a href="{% url 'register' %}">Register</a>
+</body>
+</html>
