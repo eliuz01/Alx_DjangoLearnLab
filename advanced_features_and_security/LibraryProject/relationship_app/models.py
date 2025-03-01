@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 # Advanced Model Relationships 
 
@@ -47,7 +48,7 @@ class UserProfile(models.Model):
 
 
     # Link the UserProfile to the User model with a OneToOneField
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Member')
 
     def __str__(self):
