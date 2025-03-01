@@ -11,7 +11,7 @@ class Book(models.Model):
     publication_year = models.IntegerField() 
 
 #Create custom user manager
-class CustomerUserManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, date_of_birth, profile_photo):
         if not date_of_birth:
             raise ValueError("Date of Birth Needed")
