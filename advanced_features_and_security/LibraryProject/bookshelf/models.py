@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser 
 from django.contrib.auth.models import BaseUserManager
+from django.utils.translation import gettext_lazy as _
+
 
  
 
@@ -12,24 +14,37 @@ class Book(models.Model):
 
 #Create custom user manager
 class CustomUserManager(BaseUserManager):
-    def create_user(self, date_of_birth, profile_photo):
-        if not date_of_birth:
-            raise ValueError("Date of Birth Needed")
-        user = self.model(date_of_birth=date_of_birth)
-        user.profile_photo = profile_photo  # Fix here: assign the profile photo properly
+    def create_user(self, username, email, date_of_birth, password=None, profile_photo=None):
+        """
+        Creates and returns a regular user with an email, username, date_of_birth, and password.
+        """
+        if not email:
+            raise ValueError(_('The Email field must be set'))
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, date_of_birth=date_of_birth, profile_photo=profile_photo)
+        
+        # Set password if provided
+        if password:
+            user.set_password(password)
+        
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, date_of_birth, profile_photo):
-        user = self.create_user(date_of_birth, profile_photo)
+    def create_superuser(self, username, email, date_of_birth, password=None, profile_photo=None):
+        """
+        Creates and returns a superuser with an email, username, date_of_birth, and password.
+        """
+        user = self.create_user(username, email, date_of_birth, password, profile_photo)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
 
-
 # Create your models here.
 #uses inheritance  
 class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(("Date of Birth"), auto_now=False, auto_now_add=False, null=False)
-    profile_photo = models.ImageField(("Profile Photo"), upload_to=None, height_field=None, width_field=None, max_length=100, null=True)
+    date_of_birth = models.DateField(("Date of Birth"), null=False)
+    profile_photo = models.ImageField(("Profile Photo"), upload_to="profile_photos/", null=True, blank=True)
+
+    # To ensure the custom manager is used:
+    objects = CustomUserManager()
