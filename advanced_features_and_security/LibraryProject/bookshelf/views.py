@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from bookshelf.models import Book
 
+
 # View all books (protected by 'can_view' permission)
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
