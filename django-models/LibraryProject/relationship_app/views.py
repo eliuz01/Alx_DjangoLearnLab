@@ -13,7 +13,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.decorators import permission_required
-from django.forms import BookForm
+
 
 
 # Function-based view to list all books
@@ -73,7 +73,7 @@ def is_admin(user):
 
 # Check if the user is a Librarian
 def is_librarian(user):
-    return user.userprofile.role == 'Librarians'
+    return user.userprofile.role == 'Librarian'
 
 # Check if the user is a Member
 def is_member(user):
