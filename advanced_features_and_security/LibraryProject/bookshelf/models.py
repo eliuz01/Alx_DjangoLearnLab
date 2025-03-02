@@ -14,7 +14,9 @@ class Book(models.Model):
     publication_year = models.IntegerField() 
 
     class Meta:
-        permissions = [("can_create", "can create a bookshelh"),
+        permissions = [("can_create", "can create a bookshelf"),
+                       ("can_view", "can view a bookshelf"),
+                       ("can_edit", "can edit a bookshelf"),
                        ("can_delete", "can delete a bookshelf"),                     
     ]
 

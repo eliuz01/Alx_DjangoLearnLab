@@ -1,8 +1,8 @@
-# bookshelf/urls.py
-
 from django.urls import path
-from .views import home
+from . import views
 
 urlpatterns = [
-    path('', home, name='home'),  # Root URL that will show the home view
+    path('books/', views.book_list, name='book_list'),
+    path('books/create/', views.create_book, name='create_book'),
+    path('books/<int:pk>/edit/', views.edit_book, name='edit_book'),
 ]
