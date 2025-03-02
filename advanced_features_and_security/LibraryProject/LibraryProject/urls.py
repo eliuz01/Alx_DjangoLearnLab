@@ -20,6 +20,7 @@ from relationship_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('bookshelf.urls')),  # Include bookshelf URLs for the homepage
     path('books/', views.list_books, name='list_books'), # FBV for listing books
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),  # CBV for library details
     path('accounts/', include('relationship_app.urls')),  # Include the authentication URLs from relationship_app

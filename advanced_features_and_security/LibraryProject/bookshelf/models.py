@@ -4,6 +4,7 @@ from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
 
+
  
 
 # Create your models here.
@@ -12,9 +13,15 @@ class Book(models.Model):
     author = models.CharField(max_length=200)
     publication_year = models.IntegerField() 
 
+    class Meta:
+        permissions = [("can_create", "can create")]
+
+    def __str__(self):
+        return self.title
+
 #Create custom user manager
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, email, date_of_birth, password=None, profile_photo=None):
+    def create_user(self, username, email, date_of_birth=None, password=None, profile_photo=None):
         """
         Creates and returns a regular user with an email, username, date_of_birth, and password.
         """
@@ -30,7 +37,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, date_of_birth, password=None, profile_photo=None):
+    def create_superuser(self, username, email, date_of_birth=None, password=None, profile_photo=None):
         """
         Creates and returns a superuser with an email, username, date_of_birth, and password.
         """
@@ -43,7 +50,7 @@ class CustomUserManager(BaseUserManager):
 # Create your models here.
 #uses inheritance  
 class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(("Date of Birth"), null=False)
+    date_of_birth = models.DateField(("Date of Birth"), null=True)
     profile_photo = models.ImageField(("Profile Photo"), upload_to="profile_photos/", null=True, blank=True)
 
     # To ensure the custom manager is used:
