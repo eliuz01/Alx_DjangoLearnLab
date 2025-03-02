@@ -49,6 +49,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # Allow the HSTS policy to be preloaded in browsers
 SECURE_HSTS_PRELOAD = True
 
+# Ensure Django trusts the proxy header for SSL detection
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
