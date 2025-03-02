@@ -39,6 +39,17 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browser sniffing content type
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is only sent over HTTPS
 SESSION_COOKIE_SECURE = True  # Ensure session cookie is only sent over HTTPS
 
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow the HSTS policy to be preloaded in browsers
+SECURE_HSTS_PRELOAD = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
