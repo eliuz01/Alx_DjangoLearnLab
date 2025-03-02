@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from .forms import ExampleForm  # Import ExampleForm as per the checker
 from bookshelf.models import Book
 
-# View all books (protected by 'can_view' permission)
+# View all books (protected by 'can_view' permission as below)
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
     books = Book.objects.all()
