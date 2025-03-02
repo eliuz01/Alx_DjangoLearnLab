@@ -13,7 +13,7 @@ def book_list(request):
 @permission_required('bookshelf.can_create', raise_exception=True)
 def create_book(request):
     if request.method == 'POST':
-        # Sanitize and validate inputs using ExampleForm (or any other form)
+        # Sanitize and validate inputs using ExampleForm
         form = ExampleForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -21,12 +21,13 @@ def create_book(request):
             publication_year = form.cleaned_data['publication_year']
 
             # Securely create the new book instance
-            book = Book.objects.create(title=title, author=author, publication_year=publication_year)
+            Book.objects.create(title=title, author=author, publication_year=publication_year)
             return redirect('book_list')
     else:
         form = ExampleForm()  # If GET request, show an empty form
 
-    return render(request, 'create_book.html', {'form': form})
+    return render(request, 'form_example.html', {'form': form})  # Updated to render form_example.html
+
 
 # Edit an existing book (protected by 'can_edit' permission)
 @permission_required('bookshelf.can_edit', raise_exception=True)
@@ -34,7 +35,7 @@ def edit_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     
     if request.method == 'POST':
-        # Sanitize and validate inputs using ExampleForm (or any other form)
+        # Sanitize and validate inputs using ExampleForm
         form = ExampleForm(request.POST)
         if form.is_valid():
             book.title = form.cleaned_data['title']
@@ -46,4 +47,4 @@ def edit_book(request, pk):
         # Initialize form with existing book data
         form = ExampleForm(initial={'title': book.title, 'author': book.author, 'publication_year': book.publication_year})
 
-    return render(request, 'edit_book.html', {'form': form, 'book': book})
+    return render(request, 'form_example.html', {'form': form, 'book': book})  # Updated to render form_example.html
