@@ -5,7 +5,6 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     pass
-
 admin.site.register(CustomUser, CustomUserAdmin)
 
 
