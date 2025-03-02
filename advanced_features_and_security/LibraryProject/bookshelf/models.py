@@ -16,18 +16,17 @@ class CustomUserManager(BaseUserManager):
         if not date_of_birth:
             raise ValueError("Date of Birth Needed")
         user = self.model(date_of_birth=date_of_birth)
-        user = self.model(profile_photo=profile_photo)
+        user.profile_photo = profile_photo  # Fix here: assign the profile photo properly
         user.save(using=self._db)
-
         return user
+
     def create_superuser(self, date_of_birth, profile_photo):
         user = self.create_user(date_of_birth, profile_photo)
-        
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
-
         return user
+
 
 # Create your models here.
 #uses inheritance  
