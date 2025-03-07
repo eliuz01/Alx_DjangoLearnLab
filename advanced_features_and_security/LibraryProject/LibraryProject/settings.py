@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-46y31-@79bc$eul*(d4@%9y$7i-pcyw9pnx=w_=mt+n0htx#@z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # settings.py
 
@@ -39,7 +39,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browser sniffing content type
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is only sent over HTTPS
 SESSION_COOKIE_SECURE = True  # Ensure session cookie is only sent over HTTPS
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 
