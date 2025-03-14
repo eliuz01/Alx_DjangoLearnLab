@@ -15,7 +15,7 @@ class BookSerializer(serializers.ModelSerializer):
         return data
     
 class AuthorSerializer(serializers.ModelSerializer):
-    related_books = BookSerializer(many=True, read_only = True)
+    related_books = BookSerializer["(many=True, read_only=True)"]
     class Meta:
         model  = Author 
         fields = ("name", "related_books")
