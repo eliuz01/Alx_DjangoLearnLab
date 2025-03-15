@@ -16,11 +16,11 @@ class BookListView(generics.ListAPIView ):
      queryset = Book.objects.all()
      serializer_class = BookSerializer
 
-class BookDetailView(generics.DetailAPIView ): 
+class BookDetailView(generics.DetailAPIView): 
      queryset = Book.objects.get(id)
      serializer_class = BookSerializer
 
-class BookCreateView(generics.CreateAPIView ): 
+class BookCreateView(generics.CreateAPIView): 
      queryset = Book.objects.create()
      serializer_class = BookSerializer
 
@@ -28,6 +28,6 @@ class BookUpdateView(generics.UpdateAPIView):
      queryset = Book.objects.update()
      serializer_class = BookSerializer
 
-class BookDeleteView(generics.DeleteAPIView ): 
+class BookDeleteView(generics.DeleteAPIView): 
      queryset = Book.objects.delete()
      serializer_class = BookSerializer
