@@ -3,14 +3,30 @@ from rest_framework import generics
 from .serializers import BookSerializer, AuthorSerializer
 from .models import Book, Author
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from django_filters import rest_framework
-#generic views provide commonly needed behaviours such as creat,list, read, delete, which are model instances
-# Create your views here.
-#create class begin with model name 'Book' followed by th behaviour i.e. ListView or CreateView....
-class BookListView(generics.ListAPIView ): 
-     queryset = Book.objects.all()
-     serializer_class = BookSerializer
-     permission_classes = [IsAuthenticatedOrReadOnly]
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+# Custom filter for Book model
+class BookFilter(filters.FilterSet):
+    title = filters.CharFilter(lookup_expr='icontains')  # Allows case-insensitive partial match for title
+    author = filters.CharFilter(field_name='author__name', lookup_expr='icontains')  # Allows search by author name
+    publication_year = filters.NumberFilter(lookup_expr='exact')  # Allows filtering by publication year
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'publication_year']
+
+
+# BookListView with filtering, searching, and ordering
+class BookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_class = BookFilter
+    search_fields = ['title', 'author__name']  # Allow searching by title and author name
+    ordering_fields = ['title', 'publication_year']  # Allow ordering by title and publication year
+    ordering = ['title']  # Default ordering by title
 
 class BookDetailView(generics.DetailAPIView): 
      queryset = Book.objects.all()
