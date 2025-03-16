@@ -5,6 +5,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters import rest_framework as filters
 from .serializers import BookSerializer, AuthorSerializer
 from .models import Book, Author
+from rest_framework import filters
 
 # Custom filter for Book model
 class BookFilter(filters.FilterSet):
@@ -25,12 +26,15 @@ class BookListView(generics.ListAPIView):
 
     # Use ONLY filters.OrderingFilter as requested
     filter_backends = [filters.OrderingFilter]  # Just use OrderingFilter here (no other filters)
+    filter_backends = [filters.SearchFilter]
 
     # Define which fields can be used for ordering
     ordering_fields = ['title', 'publication_year']  # Allow ordering by 'title' or 'publication_year'
 
     # Set default ordering (e.g., order by title by default)
     ordering = ['title']  # Default ordering by 'title'
+
+    search_fields = ['title', 'author__name'] 
 
 # The other views remain the same as they handle create, update, delete, and retrieve
 class BookDetailView(generics.DetailAPIView):
