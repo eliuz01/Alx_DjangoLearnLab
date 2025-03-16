@@ -17,16 +17,20 @@ class BookFilter(filters.FilterSet):
         fields = ['title', 'author', 'publication_year']
 
 
-# BookListView with filtering, searching, and ordering
+# BookListView with ordering (ONLY OrderingFilter from filters)
 class BookListView(generics.ListAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)  # Add OrderingFilter here
-    filterset_class = BookFilter
-    search_fields = ['title', 'author__name']  # Allow searching by title and author name
-    ordering_fields = ['title', 'publication_year']  # Allow ordering by title and publication year
-    ordering = ['title']  # Default ordering by title
+    queryset = Book.objects.all()  # Get all Book objects
+    serializer_class = BookSerializer  # Specify the serializer for Book model
+    permission_classes = [IsAuthenticatedOrReadOnly]  # Allow authenticated users or read-only access
+
+    # Use ONLY filters.OrderingFilter as requested
+    filter_backends = [filters.OrderingFilter]  # Just use OrderingFilter here (no other filters)
+
+    # Define which fields can be used for ordering
+    ordering_fields = ['title', 'publication_year']  # Allow ordering by 'title' or 'publication_year'
+
+    # Set default ordering (e.g., order by title by default)
+    ordering = ['title']  # Default ordering by 'title'
 
 # The other views remain the same as they handle create, update, delete, and retrieve
 class BookDetailView(generics.DetailAPIView):
