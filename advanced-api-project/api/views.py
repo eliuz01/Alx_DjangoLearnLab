@@ -3,6 +3,7 @@ from rest_framework import generics
 from .serializers import BookSerializer, AuthorSerializer
 from .models import Book, Author
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from django_filters import rest_framework
 #generic views provide commonly needed behaviours such as creat,list, read, delete, which are model instances
 # Create your views here.
 #create class begin with model name 'Book' followed by th behaviour i.e. ListView or CreateView....
