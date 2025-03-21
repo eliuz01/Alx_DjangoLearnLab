@@ -1,0 +1,32 @@
+<!-- blog/templates/blog/post_list.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>All Blog Posts</h2>
+
+  <!-- Loop through the posts and display them -->
+  <ul>
+    {% for post in posts %}
+      <li>
+        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+        <p>{{ post.content|slice:":100" }}...</p>  <!-- Display a snippet of the post content -->
+        <small>By {{ post.author.username }} on {{ post.created_at }}</small>
+      </li>
+    {% empty %}
+      <p>No posts available.</p>
+    {% endfor %}
+  </ul>
+
+  <!-- Pagination controls -->
+  <div>
+    <span class="page-links">
+      {% for i in posts.paginator.page_range %}
+        {% if posts.number == i %}
+          <strong>{{ i }}</strong>
+        {% else %}
+          <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
+    </span>
+  </div>
+{% endblock %}

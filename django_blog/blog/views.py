@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, UserUpdateForm
 from django.contrib import messages
+from .models import Post
+from django.views.generic.detail import ListView
 
 # Create your views here.
 
@@ -24,3 +26,8 @@ def user_profile(request):
 
 def register(request):
     return render(request, 'register.html')
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
