@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, UserUpdateForm
 from django.contrib import messages
 from .models import Post
-from django.views.generic.detail import ListView
+from django.views.generic.detail import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 # Create your views here.
 
@@ -29,5 +29,25 @@ def register(request):
 
 class PostListView(ListView):
     model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'post'
+
+class PostDetailView(DetailView):
+    model = Post
     template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'blog/post_create.html'
+    context_object_name = 'post'
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/post_update.html'
+    context_object_name = 'post'
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_delete.html'
     context_object_name = 'post'

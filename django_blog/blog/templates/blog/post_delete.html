@@ -1,0 +1,16 @@
+<!-- blog/templates/blog/post_delete.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Are you sure you want to delete the post titled "{{ post.title }}"?</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    
+    <!-- Delete confirmation button -->
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    
+    <!-- Cancel button to go back to the post details page -->
+    <a href="{% url 'post_detail' post.pk %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

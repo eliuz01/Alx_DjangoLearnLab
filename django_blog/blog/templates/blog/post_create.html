@@ -1,0 +1,18 @@
+<!-- blog/templates/blog/post_create.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Create a New Post</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Display form fields -->
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-success">Create Post</button>
+  </form>
+
+  <br>
+  <a href="{% url 'post_list' %}">Back to Post List</a>
+{% endblock %}

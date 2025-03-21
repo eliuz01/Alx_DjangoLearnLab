@@ -1,32 +1,22 @@
-<!-- blog/templates/blog/post_list.html -->
+<!-- blog/templates/blog/post_detail.html -->
 {% extends 'base_generic.html' %}
 
 {% block content %}
-  <h2>All Blog Posts</h2>
+  <div class="post-detail">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <small>By {{ post.author.username }} on {{ post.created_at }}</small>
+    
+    {% if post.image %}
+      <img src="{{ post.image.url }}" alt="Post Image" width="500">
+    {% endif %}
 
-  <!-- Loop through the posts and display them -->
-  <ul>
-    {% for post in posts %}
-      <li>
-        <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
-        <p>{{ post.content|slice:":100" }}...</p>  <!-- Display a snippet of the post content -->
-        <small>By {{ post.author.username }} on {{ post.created_at }}</small>
-      </li>
-    {% empty %}
-      <p>No posts available.</p>
-    {% endfor %}
-  </ul>
-
-  <!-- Pagination controls -->
-  <div>
-    <span class="page-links">
-      {% for i in posts.paginator.page_range %}
-        {% if posts.number == i %}
-          <strong>{{ i }}</strong>
-        {% else %}
-          <a href="?page={{ i }}">{{ i }}</a>
-        {% endif %}
-      {% endfor %}
-    </span>
+    <div class="post-actions">
+      <a href="{% url 'post_edit' post.pk %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+    
+    <br>
+    <a href="{% url 'post_list' %}">Back to Posts</a>
   </div>
 {% endblock %}
