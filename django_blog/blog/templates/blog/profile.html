@@ -1,8 +1,29 @@
-{% extends "users/base.html" %}
-{% block title %}Profile Page{% endblock title %}
-{% block content %}
-    <div class="row my-3 p-3">
-        <h1>This is the profile page for {{user.username}}</h1>
-    </div>
+<!-- users/profile.html -->
+{% extends 'base_generic.html' %}
 
-{% endblock content %}
+{% block content %}
+  <h2>Your Profile</h2>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <h3>Update Email</h3>
+    {{ user_form.as_p }}
+
+    <h3>Update Profile</h3>
+    {{ profile_form.as_p }}
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <hr>
+
+  <!-- Display the current profile picture -->
+  <h4>Profile Picture:</h4>
+  {% if user.profile.profile_picture %}
+    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" width="150">
+  {% else %}
+    <p>No profile picture available.</p>
+  {% endif %}
+
+{% endblock %}
