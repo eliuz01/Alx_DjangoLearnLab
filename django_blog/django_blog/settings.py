@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'blog',    
 ]
 
 MIDDLEWARE = [
@@ -118,7 +118,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+#STATICFILES_DIRS = [
+    #BASE_DIR / "static",
+#]
+
+TEMPLATES = [
+     {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # This tells Django which template engine to use
+        'DIRS': [BASE_DIR / 'templates'],  # Directory where your templates are stored
+        'APP_DIRS': True,  # Whether to look for templates in each app's 'templates' directory
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
