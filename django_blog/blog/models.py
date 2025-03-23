@@ -18,3 +18,13 @@ class User_Profile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')  # Link to Post
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')  # Link to User
+    content = models.TextField()  # Comment content
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when created
+    updated_at = models.DateTimeField(auto_now=True)  # Automatically set when updated
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post.title}"
