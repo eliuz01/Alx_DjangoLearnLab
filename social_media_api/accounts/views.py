@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import RegisterSerializer  # You can add a serializer for profile updates
 from .models import CustomUser
+from .serializers import ProfileSerializer
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -53,3 +55,46 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def update(self, request, *args, **kwargs):
         # Optionally, handle any updates to the profile (e.g., bio, profile_picture)
         return super().update(request, *args, **kwargs)
+
+
+class FollowUserView(generics.GenericAPIView):
+    """
+    API view to follow a user.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        # Get the user to be followed
+        user_to_follow = get_object_or_404(CustomUser, username=kwargs['username'])
+        
+        # Check if the user is not trying to follow themselves
+        if user_to_follow == request.user:
+            return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Add the followed user to the authenticated user's following
+        request.user.following.add(user_to_follow)
+        
+        # Return success response
+        return Response({"detail": f"You are now following {user_to_follow.username}."}, status=status.HTTP_200_OK)
+
+
+class UnfollowUserView(generics.GenericAPIView):
+    """
+    API view to unfollow a user.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        # Get the user to be unfollowed
+        user_to_unfollow = get_object_or_404(CustomUser, username=kwargs['username'])
+        
+        # Check if the user is not trying to unfollow themselves
+        if user_to_unfollow == request.user:
+            return Response({"detail": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Remove the followed user from the authenticated user's following
+        request.user.following.remove(user_to_unfollow)
+        
+        # Return success response
+        return Response({"detail": f"You have unfollowed {user_to_unfollow.username}."}, status=status.HTTP_200_OK)
+
