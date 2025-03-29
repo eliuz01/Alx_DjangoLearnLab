@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from rest_framework import status, generics
+from rest_framework import status, generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import RegisterSerializer  # You can add a serializer for profile updates
 from .models import CustomUser
-from .serializers import ProfileSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -61,7 +60,7 @@ class FollowUserView(generics.GenericAPIView):
     """
     API view to follow a user.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         # Get the user to be followed
@@ -82,7 +81,7 @@ class UnfollowUserView(generics.GenericAPIView):
     """
     API view to unfollow a user.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         # Get the user to be unfollowed
