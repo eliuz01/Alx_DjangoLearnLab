@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework import generics
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from notifications.models import Notification
@@ -29,11 +30,11 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def like(self, request, pk=None):
+        post = generics.get_object_or_404(Post, pk=pk)
         user = request.user
-        post = self.get_object()
-        if Like.objects.filter(user=user, post=post).exists():
+        like, created = Like.objects.get_or_create(user=user, post=post)
+        if not created:
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
-        Like.objects.create(user=user, post=post)
         post_content_type = ContentType.objects.get_for_model(Post)
         Notification.objects.create(
             recipient=post.author,
@@ -46,8 +47,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def unlike(self, request, pk=None):
+        post = generics.get_object_or_404(Post, pk=pk)
         user = request.user
-        post = self.get_object()
         like = Like.objects.filter(user=user, post=post).first()
         if not like:
             return Response({"detail": "You have not liked this post."}, status=status.HTTP_400_BAD_REQUEST)
