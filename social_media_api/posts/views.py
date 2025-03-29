@@ -3,8 +3,10 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
-from rest_framework import permissions
+from rest_framework import permissions, viewsets
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.decorators import action
+
 
 # Create your views here.
 class IsAuthorOrReadOnly(permissions.BasePermission):
@@ -22,7 +24,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
     
     def perform_create(self, serializer):
         # Automatically set the author to the currently authenticated user
@@ -31,7 +33,18 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Optionally filter posts for a specific user (e.g., for a profile view)
         user = self.request.user
-        return Post.objects.filter(author=user)
+        following_users = user.following.all()  
+        return Post.objects.filter(author__in=following_users).order_by('-created_at') 
+    
+    @action(detail=False, methods=['get'])
+    def feed(self, request):
+        user = request.user
+        following_users = user.following.all()  # **Get users the current user is following**
+
+        feed_posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+        serializer = self.get_serializer(feed_posts, many=True)
+        
+        return Response(serializer.data)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
